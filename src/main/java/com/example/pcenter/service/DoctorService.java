@@ -7,6 +7,7 @@ import java.util.List;
 public interface DoctorService {
 
     Doctor getById(Long id);
+
     List<Doctor> getAllDoctors();
 
     Doctor createDoctor(Doctor doctor);

@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    private Logger logger = Logger.getLogger(UserServiceImpl.class.getName());
+    private final Logger logger = Logger.getLogger(UserServiceImpl.class.getName());
 
     @Override
     @Transactional(readOnly = true)
@@ -58,10 +58,10 @@ public class UserServiceImpl implements UserService {
             @Cacheable(value = "UserService::getByUsername", key = "#user.username"),
     })
     public User create(User user) {
-        if (userRepository.findByUsername(user.getUsername()).isPresent()){
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
             throw new IllegalStateException("Пользователь с таким номером уже существует.");
         }
-        if (!user.getPassword().equals(user.getPasswordConfirmation())){
+        if (!user.getPassword().equals(user.getPasswordConfirmation())) {
             throw new IllegalStateException("Введенные пароли не совпадают.");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
         existing.setEmail(user.getEmail());
         existing.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(existing);
-        logger.info("Пациент "+user.getId()+" обновлен(сервис)");
+        logger.info("Пациент " + user.getId() + " обновлен(сервис)");
         return existing;
     }
 
@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @CacheEvict(value = "UserService::getUserById", key = "#id")
     public void deleteUser(Long id) {
-        logger.info("Пациент " +id+" удален (контроллер)");
+        logger.info("Пациент " + id + " удален (контроллер)");
         userRepository.deleteById(id);
     }
 
@@ -106,8 +106,8 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("Пользователь не найден"));
         logger.info("Найден пользователь для удаления записи (сервис)");
         List<Appointment> appointmentList = user.getAppointmentList();
-        for(Appointment app: appointmentList){
-            if (app.getStatus().equals(Status.RECORDED)){
+        for (Appointment app : appointmentList) {
+            if (app.getStatus().equals(Status.RECORDED)) {
                 app.setUserId(null);
                 app.setStatus(Status.FREE);
                 user.getAppointmentList().remove(app);

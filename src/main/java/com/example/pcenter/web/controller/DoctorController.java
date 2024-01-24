@@ -31,7 +31,7 @@ public class DoctorController {
     private final AppointmentService appointmentService;
     private final AppointmentMapper appointmentMapper;
 
-    private Logger logger = Logger.getLogger(DoctorController.class.getName());
+    private final Logger logger = Logger.getLogger(DoctorController.class.getName());
 
     @PutMapping("/updateDoctor")
     @Operation(summary = "Update doctor")
@@ -40,7 +40,7 @@ public class DoctorController {
                                   @RequestBody final DoctorDto dto) {
         Doctor doctor = doctorMapper.toEntity(dto);
         Doctor updatedDoctor = doctorService.updateDoctor(doctor);
-        logger.info("Данные врача "+ doctor.getId()+" обновлены(контроллер)");
+        logger.info("Данные врача " + doctor.getId() + " обновлены(контроллер)");
         return doctorMapper.toDto(updatedDoctor);
     }
 
@@ -51,7 +51,7 @@ public class DoctorController {
                                  @RequestBody final DoctorDto doctorDto) {
         Doctor doctor = doctorMapper.toEntity(doctorDto);
         Doctor createdDoctor = doctorService.createDoctor(doctor);
-        logger.info("Добавден врач "+ doctor.getId()+" (контроллер)");
+        logger.info("Добавден врач " + doctor.getId() + " (контроллер)");
         return doctorMapper.toDto(createdDoctor);
     }
 
@@ -81,7 +81,7 @@ public class DoctorController {
     @Operation(summary = "Delete doctor")
     @PreAuthorize("@customSecurityExpression.canAccessAdmin()")
     public void deleteDoctor(@PathVariable final Long id) {
-        logger.info("Врач "+ id+" удален(контроллер)");
+        logger.info("Врач " + id + " удален(контроллер)");
         doctorService.deleteDoctor(id);
     }
 }

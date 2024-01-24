@@ -27,7 +27,7 @@ public class AppointmentController {
     private final AppointmentService appointmentService;
     private final AppointmentMapper appointmentMapper;
 
-    private Logger logger = Logger.getLogger(AppointmentController.class.getName());
+    private final Logger logger = Logger.getLogger(AppointmentController.class.getName());
 
     @PostMapping("/create/{doctorId}")
     @Operation(summary = "Creating a doctor's appointment")
@@ -37,7 +37,7 @@ public class AppointmentController {
                                             @PathVariable final Long doctorId) {
         Appointment appointment = appointmentMapper.toEntity(appointmentDto);
         Appointment createdAppointment = appointmentService.create(appointment, doctorId);
-        logger.info("Создана новая запись у доктора " + doctorId+" (контроллер)");
+        logger.info("Создана новая запись у доктора " + doctorId + " (контроллер)");
         return appointmentMapper.toDto(createdAppointment);
     }
 
@@ -72,7 +72,7 @@ public class AppointmentController {
     @PreAuthorize("@customSecurityExpression.canAccessUser(#id)")
     public AppointmentDto addUserToAppointment(@PathVariable final Long userId,
                                                @PathVariable final Long appId) {
-        logger.info("Запись "+ appId+ " добавлена пациенту "+ userId+" (контроллер)");
+        logger.info("Запись " + appId + " добавлена пациенту " + userId + " (контроллер)");
         return appointmentMapper.toDto(appointmentService.addUserAppointment(userId, appId));
     }
 
@@ -80,7 +80,7 @@ public class AppointmentController {
     @Operation(summary = "Delete appointment")
     @PreAuthorize("@customSecurityExpression.canAccessAdmin()")
     public void deleteAppointment(@PathVariable final Long id) {
-        logger.info("Запись "+ id +" удалена(контроллер)");
+        logger.info("Запись " + id + " удалена(контроллер)");
         appointmentService.deleteAppointment(id);
     }
 

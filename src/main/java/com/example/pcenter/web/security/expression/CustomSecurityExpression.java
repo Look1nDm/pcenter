@@ -15,23 +15,23 @@ public class CustomSecurityExpression {
 
     private final UserService userService;
 
-    public boolean canAccessUser(Long id){
+    public boolean canAccessUser(Long id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         JwtEntity user = (JwtEntity) authentication.getPrincipal();
         Long userId = user.getId();
         return userId.equals(id) || hasAnyRole(authentication, Role.ROLE_ADMIN);
     }
 
-    public boolean canAccessAdmin(){
+    public boolean canAccessAdmin() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         JwtEntity user = (JwtEntity) authentication.getPrincipal();
         return hasAnyRole(authentication, Role.ROLE_ADMIN);
     }
 
-    private boolean hasAnyRole(Authentication authentication, Role... roles){
-        for (Role role: roles){
+    private boolean hasAnyRole(Authentication authentication, Role... roles) {
+        for (Role role : roles) {
             SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.name());
-            if (authentication.getAuthorities().contains(authority)){
+            if (authentication.getAuthorities().contains(authority)) {
                 return true;
             }
         }

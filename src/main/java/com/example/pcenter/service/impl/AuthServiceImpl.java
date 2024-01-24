@@ -21,7 +21,8 @@ public class AuthServiceImpl implements AuthService {
     private final UserService userService;
     private final JwtTokenProvider jwtTokenProvider;
 
-    private Logger logger = Logger.getLogger(AuthServiceImpl.class.getName());
+    private final Logger logger = Logger.getLogger(AuthServiceImpl.class.getName());
+
     @Override
     public JwtResponse login(final JwtRequest loginRequest) {
         logger.info("Запуск процесса входа в личный кабинет(сервис)");

@@ -9,6 +9,7 @@ import java.util.List;
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
     List<Appointment> findAllByDoctorId(Long doctorId);
+
     List<Appointment> findAllByUserId(Long userId); // почему то выдает бед реквест(((
 
 

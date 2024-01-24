@@ -19,5 +19,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
                 FROM users_appointments
                 WHERE user_id = :userId
                 AND appointment_id = :appointmentId)""", nativeQuery = true)
-    boolean isAppointmentOwner(@Param("userId") Long userId,@Param("appointmentId") Long appointmentId);
+    boolean isAppointmentOwner(@Param("userId") Long userId, @Param("appointmentId") Long appointmentId);
 }

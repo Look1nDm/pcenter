@@ -30,18 +30,18 @@ public class AuthController {
     private final UserService userService;
     private final UserMapper userMapper;
 
-    private Logger logger = Logger.getLogger(AuthController.class.getName());
+    private final Logger logger = Logger.getLogger(AuthController.class.getName());
 
     @PostMapping("/login")
     @Operation(summary = "Authorization user")
-    public JwtResponse login(@Validated @RequestBody JwtRequest loginRequest){
+    public JwtResponse login(@Validated @RequestBody JwtRequest loginRequest) {
         logger.info("Вход в ЛК (контроллер)");
         return authService.login(loginRequest);
     }
 
     @PostMapping("/register")
     @Operation(summary = "Registration user")
-    public UserDto register(@Validated(OnCreate.class) @RequestBody final UserDto userDto){
+    public UserDto register(@Validated(OnCreate.class) @RequestBody final UserDto userDto) {
         User user = userMapper.toEntity(userDto);
         User createdUser = userService.create(user);
         logger.info("Регистрация нового пользователя (контроллер)");
@@ -50,7 +50,7 @@ public class AuthController {
 
     @PostMapping("/refresh")
     @Operation(summary = "Update user")
-    public JwtResponse refresh (@RequestBody final String refreshToken){
+    public JwtResponse refresh(@RequestBody final String refreshToken) {
         logger.info("Смена пароля у пользователя(контроллер)");
         return authService.refresh(refreshToken);
     }

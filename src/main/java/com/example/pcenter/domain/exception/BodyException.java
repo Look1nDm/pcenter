@@ -7,7 +7,7 @@ import java.util.Map;
 
 @Data
 @AllArgsConstructor
-public class BodyException{
+public class BodyException {
 
     private String message;
     private Map<String, String> errors;
