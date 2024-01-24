@@ -13,6 +13,6 @@ public interface UserMapper {
 
     User toEntity(UserDto userDto);
 
-    List<UserDto> toDto (List<User> users);
+    List<UserDto> toDto(List<User> users);
 
 }

@@ -1,9 +1,9 @@
 package com.example.pcenter.service.impl;
 
-import com.example.pcenter.domain.doctor.Doctor;
-import com.example.pcenter.domain.exception.ResourceNotFoundException;
 import com.example.pcenter.domain.appointment.Appointment;
 import com.example.pcenter.domain.appointment.Status;
+import com.example.pcenter.domain.doctor.Doctor;
+import com.example.pcenter.domain.exception.ResourceNotFoundException;
 import com.example.pcenter.domain.user.User;
 import com.example.pcenter.repository.AppointmentRepository;
 import com.example.pcenter.service.AppointmentService;
@@ -29,7 +29,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     private final DoctorService doctorService;
     private final UserService userService;
 
-    private Logger logger = Logger.getLogger(AppointmentServiceImpl.class.getName());
+    private final Logger logger = Logger.getLogger(AppointmentServiceImpl.class.getName());
 
     @Override
     @Transactional(readOnly = true)
@@ -62,6 +62,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         logger.info("Запись обновлена(сервис)");
         return appointment;
     }
+
     @Override
     @Transactional(readOnly = true)
     public List<Appointment> getAllAppointmentsByUser(Long id) {
@@ -77,7 +78,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         Doctor doctor = doctorService.getById(doctorId);
         doctor.getAppointments().add(appointment);
         doctorService.updateDoctor(doctor);
-        logger.info("Создана новая запись у врача"+doctorId+" (сервис)");
+        logger.info("Создана новая запись у врача" + doctorId + " (сервис)");
         return appointment;
     }
 
@@ -91,7 +92,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         user.getAppointmentList().add(appointment);
         appointmentRepository.save(appointment);
         userService.update(user);
-        logger.info("Добавлена запись к пациенту "+userId+" (сервис)");
+        logger.info("Добавлена запись к пациенту " + userId + " (сервис)");
         return appointment;
     }
 

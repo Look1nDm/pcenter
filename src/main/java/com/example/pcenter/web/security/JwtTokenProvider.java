@@ -94,7 +94,8 @@ public class JwtTokenProvider {
                 .parseClaimsJws(token);
         return !claims.getBody().getExpiration().before(new Date());
     }
-    private String getId(String token){
+
+    private String getId(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
@@ -102,7 +103,8 @@ public class JwtTokenProvider {
                 .getBody()
                 .getId();
     }
-    private String getUsername(String token){
+
+    private String getUsername(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
@@ -110,9 +112,10 @@ public class JwtTokenProvider {
                 .getBody()
                 .getSubject();
     }
-    public Authentication getAuthentication(String token){
+
+    public Authentication getAuthentication(String token) {
         String username = getUsername(token);
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        return new UsernamePasswordAuthenticationToken(userDetails,"", userDetails.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 }

@@ -25,7 +25,7 @@ public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
 
-    private Logger logger = Logger.getLogger(UserController.class.getName());
+    private final Logger logger = Logger.getLogger(UserController.class.getName());
 
     @PutMapping("/create")
     @PreAuthorize("@customSecurityExpression.canAccessAdmin()")
@@ -44,7 +44,7 @@ public class UserController {
                               @RequestBody final UserDto dto) {
         User user = userMapper.toEntity(dto);
         User updatedUser = userService.update(user);
-        logger.info("Пациент"+user.getId()+" обновлен(контроллер)");
+        logger.info("Пациент" + user.getId() + " обновлен(контроллер)");
         return userMapper.toDto(updatedUser);
     }
 
@@ -81,7 +81,7 @@ public class UserController {
     @Operation(summary = "Delete appointment to user")
     @PreAuthorize("@customSecurityExpression.canAccessUser(#id)")
     public void deleteAppointmentToUser(@PathVariable Long userId) {
-        logger.info("Запись у пациента "+userId+" удалена(контроллер)");
+        logger.info("Запись у пациента " + userId + " удалена(контроллер)");
         userService.deleteAppointmentToUser(userId);
     }
 }

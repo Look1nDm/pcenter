@@ -9,6 +9,7 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+
 @Data
 @Schema(description = "Appointment dto")
 public class AppointmentDto {

@@ -47,15 +47,15 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public OpenAPI openAPI(){
+    public OpenAPI openAPI() {
         return new OpenAPI().addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
-                            .components(new Components()
-                                .addSecuritySchemes("bearerAuth",
-                                    new SecurityScheme().type(SecurityScheme.Type.HTTP)
-                                                        .scheme("bearer")
-                                                        .bearerFormat("JWT")
-                                )
-                            ).info(new Info()
+                .components(new Components()
+                        .addSecuritySchemes("bearerAuth",
+                                new SecurityScheme().type(SecurityScheme.Type.HTTP)
+                                        .scheme("bearer")
+                                        .bearerFormat("JWT")
+                        )
+                ).info(new Info()
                         .title("list API")
                         .description("SB application")
                         .version("1.0"));
@@ -67,6 +67,7 @@ public class ApplicationConfig {
         expressionHandler.setApplicationContext(applicationContext);
         return expressionHandler;
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)

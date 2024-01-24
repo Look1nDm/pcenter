@@ -17,7 +17,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     private final DoctorRepository doctorRepository;
 
-    private Logger logger = Logger.getLogger(DoctorServiceImpl.class.getName());
+    private final Logger logger = Logger.getLogger(DoctorServiceImpl.class.getName());
 
     @Override
     @Transactional(readOnly = true)
@@ -25,6 +25,7 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException("Врач не найден"));
     }
+
     @Override
     @Transactional(readOnly = true)
     public List<Doctor> getAllDoctors() {
@@ -41,14 +42,14 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     @Transactional
     public Doctor updateDoctor(Doctor doctor) {
-        logger.info("Врач"+doctor.getId()+" обновлен(сервис)");
+        logger.info("Врач" + doctor.getId() + " обновлен(сервис)");
         return doctorRepository.save(doctor);
     }
 
     @Override
     @Transactional
     public void deleteDoctor(Long id) {
-        logger.info("Врач "+id+" удален(сервис)");
+        logger.info("Врач " + id + " удален(сервис)");
         doctorRepository.deleteById(id);
     }
 }

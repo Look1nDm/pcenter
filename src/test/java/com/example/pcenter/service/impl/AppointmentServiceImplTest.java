@@ -19,8 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @ExtendWith(MockitoExtension.class)
@@ -86,7 +88,7 @@ public class AppointmentServiceImplTest {
     }
 
     @Test
-    void update(){
+    void update() {
         Appointment appointment = new Appointment();
         appointment.setId(1L);
         appointment.setStatus(Status.BUSY);
@@ -96,7 +98,7 @@ public class AppointmentServiceImplTest {
     }
 
     @Test
-    void updateWithNullStatus(){
+    void updateWithNullStatus() {
         Appointment appointment = new Appointment();
         appointment.setId(1L);
         Appointment testAppointment = appointmentService.update(appointment);
@@ -105,7 +107,7 @@ public class AppointmentServiceImplTest {
     }
 
     @Test
-    void getAllAppointmentsByUser(){
+    void getAllAppointmentsByUser() {
         Long userId = 1L;
         List<Appointment> list = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
@@ -127,7 +129,7 @@ public class AppointmentServiceImplTest {
 //    }
 
     @Test
-    void delete(){
+    void delete() {
         Long id = 1L;
         appointmentService.deleteAppointment(id);
         verify(appointmentRepository).deleteById(id);
